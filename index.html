@@ -1,413 +1,402 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>사가 골프 여행 일정</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body { -webkit-tap-highlight-color: transparent; }
-    ::-webkit-scrollbar { width: 0px; background: transparent; }
-  </style>
-</head>
-<body class="bg-gray-100 font-sans text-gray-800">
+import React, { useState } from 'react';
 
-  <div class="max-w-md mx-auto bg-gray-50 min-h-screen pb-20 shadow-2xl border-x border-gray-200 relative">
-    
-    <!-- Header -->
-    <div class="bg-emerald-800 text-white p-6 rounded-b-3xl shadow-md">
-      <h1 class="text-2xl font-bold mb-2 tracking-tight">사가 그린미팅 & 힐링 여행 ⛳</h1>
-      <p class="text-emerald-100 flex items-center text-sm mb-1">
-        <i class="fa-regular fa-calendar mr-2 w-4 text-center"></i> 2026.04.08 - 04.12 (4박 5일)
-      </p>
-      <p class="text-emerald-100 flex items-center text-sm">
-        <i class="fa-solid fa-location-dot mr-2 w-4 text-center"></i> 사가현 · 나가사키현
-      </p>
-    </div>
+export default function App() {
+  const [activeTab, setActiveTab] = useState('schedule');
+  const [expandedDays, setExpandedDays] = useState({
+    day1: true,
+    day2: false,
+    day3: false,
+    day4: true, // 4일차 변경사항을 바로 볼 수 있도록 열어둡니다.
+    day5: false,
+  });
 
-    <!-- Tabs -->
-    <div class="flex px-4 mt-6 gap-2">
-      <button id="btn-schedule" onclick="switchTab('schedule')" class="flex-1 py-3 font-bold rounded-xl transition bg-emerald-600 text-white shadow-lg text-sm md:text-base">
-        상세 일정표
-      </button>
-      <button id="btn-info" onclick="switchTab('info')" class="flex-1 py-3 font-bold rounded-xl transition bg-white text-gray-500 shadow text-sm md:text-base">
-        예약 번호/정보
-      </button>
-    </div>
+  const toggleDay = (dayId) => {
+    setExpandedDays((prev) => ({
+      ...prev,
+      [dayId]: !prev[dayId],
+    }));
+  };
 
-    <!-- Content Area -->
-    <div class="p-4 mt-2">
+  return (
+    <div className="bg-gray-100 font-sans text-gray-800 min-h-screen">
+      <style>{`
+        body { -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+      `}</style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-      <!-- ================= SCHEDULE TAB ================= -->
-      <div id="tab-schedule" class="space-y-4 block">
+      <div className="max-w-md mx-auto bg-gray-50 min-h-screen pb-20 shadow-2xl border-x border-gray-200 relative">
         
-        <!-- Day 1 -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onclick="toggleDay('day1')">
-            <div class="flex items-center gap-3">
-              <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">1일차</span>
-              <span class="font-bold text-gray-800">4.8 (수)</span>
-            </div>
-            <div class="flex items-center text-emerald-700 font-medium text-sm">
-              출국 및 첫 라운딩
-              <i id="icon-day1" class="fa-solid fa-chevron-right ml-3 transition-transform duration-300 rotate-90"></i>
-            </div>
-          </div>
-          <div id="content-day1" class="p-4 relative block">
-            <div class="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
-            
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-plane text-blue-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">08:10</span><span class="font-bold text-gray-700">인천(ICN) 출발</span></div><p class="text-gray-500 text-sm">티웨이 TW285</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-location-dot text-red-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">09:40</span><span class="font-bold text-gray-700">사가(HSG) 도착</span></div><p class="text-gray-500 text-sm">입국 수속 및 짐 찾기</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">10:00</span><span class="font-bold text-gray-700">렌터카 인수</span></div><p class="text-gray-500 text-sm">사가공항 카운터 (WA클래스)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-golf-ball-tee text-green-600"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">13:29</span><span class="font-bold text-gray-700">와카키 CC 라운딩</span></div><p class="text-gray-500 text-sm">18홀 / 카트 (약 6시간 소요)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-shower text-blue-400"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">19:30</span><span class="font-bold text-gray-700">샤워 및 이동 준비</span></div><p class="text-gray-500 text-sm">라운딩 종료 후 약 40분 소요</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">20:10</span><span class="font-bold text-gray-700">숙소로 이동</span></div><p class="text-gray-500 text-sm">우레시노로 출발</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-bed text-indigo-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">21:00</span><span class="font-bold text-gray-700">호텔 체크인</span></div><p class="text-gray-500 text-sm">우레시노 온천 카수이엔</p></div>
-            </div>
-            <div class="flex relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-utensils text-orange-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">21:30</span><span class="font-bold text-gray-700">저녁 식사</span></div><p class="text-gray-500 text-sm">체크인 후 인근 식당(joyfull)</p></div>
-            </div> 
-          </div>
+        {/* Header */}
+        <div className="bg-emerald-800 text-white p-6 rounded-b-3xl shadow-md">
+          <h1 className="text-2xl font-bold mb-2 tracking-tight">사가현 골프 & 힐링 여행 ⛳</h1>
+          <p className="text-emerald-100 flex items-center text-sm mb-1">
+            <i className="fa-regular fa-calendar mr-2 w-4 text-center"></i> 2026.04.08 - 04.12 (4박 5일)
+          </p>
+          <p className="text-emerald-100 flex items-center text-sm">
+            <i className="fa-solid fa-location-dot mr-2 w-4 text-center"></i> 사가현 · 나가사키현
+          </p>
         </div>
 
-        <!-- Day 2 -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onclick="toggleDay('day2')">
-            <div class="flex items-center gap-3">
-              <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">2일차</span>
-              <span class="font-bold text-gray-800">4.9 (목)</span>
-            </div>
-            <div class="flex items-center text-emerald-700 font-medium text-sm">
-              그린 미팅 & 온천/관광
-              <i id="icon-day2" class="fa-solid fa-chevron-right ml-3 transition-transform duration-300"></i>
-            </div>
-          </div>
-          <div id="content-day2" class="p-4 relative hidden">
-            <div class="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">07:10</span><span class="font-bold text-gray-700">기상 및 조식</span></div><p class="text-gray-500 text-sm">호텔에서 4.4km (약 10분)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-golf-ball-tee text-green-600"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">07:54</span><span class="font-bold text-gray-700">타케오 우레시노 CC</span></div><p class="text-gray-500 text-sm">18홀 / 카트 / 중식 (약 6시간)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-shower text-blue-400"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">13:54</span><span class="font-bold text-gray-700">샤워 및 이동 준비</span></div><p class="text-gray-500 text-sm">라운딩 종료 후 약 40분 소요</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-tree text-emerald-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">14:40</span><span class="font-bold text-gray-700">다케오 관광</span></div><p class="text-gray-500 text-sm">다케오 신사 녹나무 (3천년 고목)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-mug-hot text-amber-600"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">16:00</span><span class="font-bold text-gray-700">커피 한잔의 여유</span></div><p class="text-gray-500 text-sm">다케오 시립 도서관 스타벅스</p></div>
-            </div>
-            <!-- 추가된 시바온천 일정 -->
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-hot-tub-person text-blue-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">17:00</span><span class="font-bold text-gray-700">피로 회복 온천욕</span></div><p class="text-gray-500 text-sm">시바온천 야외 노천탕</p></div>
-            </div>
-            <div class="flex relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-utensils text-orange-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">18:30</span><span class="font-bold text-gray-700">저녁 식사</span></div><p class="text-gray-500 text-sm">후지 오코노미야끼 등</p></div>
-            </div>
-          </div>
+        {/* Tabs */}
+        <div className="flex px-4 mt-6 gap-2">
+          <button 
+            onClick={() => setActiveTab('schedule')} 
+            className={`flex-1 py-3 font-bold rounded-xl transition text-sm md:text-base ${activeTab === 'schedule' ? 'bg-emerald-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow'}`}
+          >
+            상세 일정표
+          </button>
+          <button 
+            onClick={() => setActiveTab('info')} 
+            className={`flex-1 py-3 font-bold rounded-xl transition text-sm md:text-base ${activeTab === 'info' ? 'bg-emerald-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow'}`}
+          >
+            예약번호 정보
+          </button>
         </div>
 
-        <!-- Day 3 -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onclick="toggleDay('day3')">
-            <div class="flex items-center gap-3">
-              <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">3일차</span>
-              <span class="font-bold text-gray-800">4.10 (금)</span>
-            </div>
-            <div class="flex items-center text-emerald-700 font-medium text-sm">
-              그린 미팅 & 사가 시내 미식
-              <i id="icon-day3" class="fa-solid fa-chevron-right ml-3 transition-transform duration-300"></i>
-            </div>
-          </div>
-          <div id="content-day3" class="p-4 relative hidden">
-            <div class="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">07:10</span><span class="font-bold text-gray-700">기상 및 조식</span></div><p class="text-gray-500 text-sm">호텔에서 34km (약 40분)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-golf-ball-tee text-green-600"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">08:24</span><span class="font-bold text-gray-700">텐잔 GC 라운딩</span></div><p class="text-gray-500 text-sm">18홀 / 카트 / 중식 (약 6시간)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-shower text-blue-400"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">14:24</span><span class="font-bold text-gray-700">샤워 및 이동 준비</span></div><p class="text-gray-500 text-sm">라운딩 종료 후 약 40분 소요</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">15:10</span><span class="font-bold text-gray-700">사가 시내로 이동</span></div><p class="text-gray-500 text-sm">라운딩 후 휴식 및 이동</p></div>
-            </div>
-            <div class="flex relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-utensils text-orange-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">18:00</span><span class="font-bold text-gray-700">저녁 만찬 (해수산)</span></div><p class="text-gray-500 text-sm">사가역 앞 신선한 해산물 요리</p></div>
-            </div>
-          </div>
-        </div>
+        {/* Content Area */}
+        <div className="p-4 mt-2">
 
-        <!-- Day 4 -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onclick="toggleDay('day4')">
-            <div class="flex items-center gap-3">
-              <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4일차</span>
-              <span class="font-bold text-gray-800">4.11 (토)</span>
-            </div>
-            <div class="flex items-center text-emerald-700 font-medium text-sm">
-              그린 미팅 & 휴식
-              <i id="icon-day4" class="fa-solid fa-chevron-right ml-3 transition-transform duration-300"></i>
-            </div>
-          </div>
-          <div id="content-day4" class="p-4 relative hidden">
-            <div class="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-bed text-indigo-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">08:30</span><span class="font-bold text-gray-700">기상 및 조식</span></div><p class="text-gray-500 text-sm">라운딩 갈 준비</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">09:30</span><span class="font-bold text-gray-700">골프장 이동</span></div><p class="text-gray-500 text-sm">호텔에서 43km (약 50분)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-golf-ball-tee text-green-600"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">10:37</span><span class="font-bold text-gray-700">하우스텐보스 CC</span></div><p class="text-gray-500 text-sm">18홀 / 카트 / 중식 (약 6시간)</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-shower text-blue-400"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">16:37</span><span class="font-bold text-gray-700">샤워 및 이동 준비</span></div><p class="text-gray-500 text-sm">라운딩 종료 후 약 40분 소요</p></div>
-            </div>
-            <!-- 수정된 휴식 일정 -->
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-bed text-indigo-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">17:30</span><span class="font-bold text-gray-700">호텔 복귀 및 휴식</span></div><p class="text-gray-500 text-sm"> 휴식 </p></div>
-            </div>
-            <div class="flex relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-utensils text-orange-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">19:30</span><span class="font-bold text-gray-700">마지막 밤 만찬</span></div><p class="text-gray-500 text-sm">호텔 인근 혹은 이자카야</p></div>
-            </div>
-          </div>
-        </div>
+          {/* ================= SCHEDULE TAB ================= */}
+          {activeTab === 'schedule' && (
+            <div className="space-y-4 block">
+              
+              {/* Day 1 */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onClick={() => toggleDay('day1')}>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">1일차</span>
+                    <span className="font-bold text-gray-800">4.8 (수)</span>
+                  </div>
+                  <div className="flex items-center text-emerald-700 font-medium text-sm">
+                    출국 및 첫 그린미팅
+                    <i className={`fa-solid fa-chevron-right ml-3 transition-transform duration-300 ${expandedDays.day1 ? 'rotate-90' : ''}`}></i>
+                  </div>
+                </div>
+                <div className={`p-4 relative ${expandedDays.day1 ? 'block' : 'hidden'}`}>
+                  <div className="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
+                  
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-plane text-blue-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">08:10</span><span className="font-bold text-gray-700">인천(ICN) 출발</span></div><p className="text-gray-500 text-sm">티웨이 TW285</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-location-dot text-red-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">09:40</span><span className="font-bold text-gray-700">사가(HSG) 도착</span></div><p className="text-gray-500 text-sm">입국 수속 및 짐 찾기</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">10:00</span><span className="font-bold text-gray-700">렌터카 인수 및 이동</span></div><p className="text-gray-500 text-sm">사가공항 카운터 | 골프장 이동(40km)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-golf-ball-tee text-green-600"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">13:29</span><span className="font-bold text-gray-700">와카키cc</span></div><p className="text-gray-500 text-sm">IN코스, 18홀(약 6시간 소요)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-shower text-blue-400"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">19:30</span><span className="font-bold text-gray-700">사우나 및 이동 준비</span></div><p className="text-gray-500 text-sm">라운딩 종료 후 이동(21km)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">20:10</span><span className="font-bold text-gray-700">호텔 이동</span></div><p className="text-gray-500 text-sm">우레시노로 출발(21km, 40분)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-bed text-indigo-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">21:00</span><span className="font-bold text-gray-700">호텔 체크인</span></div><p className="text-gray-500 text-sm">우레시노 온천 카수이엔</p></div>
+                  </div>
+                  <div className="flex relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-utensils text-orange-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">21:30</span><span className="font-bold text-gray-700">저녁 식사</span></div><p className="text-gray-500 text-sm">인근식당(JoyFull, 24시간 영업), 편의점</p></div>
+                  </div> 
+                </div>
+              </div>
 
-        <!-- Day 5 -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div class="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onclick="toggleDay('day5')">
-            <div class="flex items-center gap-3">
-              <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">5일차</span>
-              <span class="font-bold text-gray-800">4.12 (일)</span>
-            </div>
-            <div class="flex items-center text-emerald-700 font-medium text-sm">
-              귀국
-              <i id="icon-day5" class="fa-solid fa-chevron-right ml-3 transition-transform duration-300"></i>
-            </div>
-          </div>
-          <div id="content-day5" class="p-4 relative hidden">
-            <div class="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-bed text-indigo-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">07:00</span><span class="font-bold text-gray-700">기상 및 체크아웃</span></div><p class="text-gray-500 text-sm">공항으로 이동</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-car text-gray-700"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">09:00</span><span class="font-bold text-gray-700">렌터카 반납</span></div><p class="text-gray-500 text-sm">사가공항 카운터</p></div>
-            </div>
-            <div class="flex mb-6 relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-plane text-blue-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">10:40</span><span class="font-bold text-gray-700">사가(HSG) 출발</span></div><p class="text-gray-500 text-sm">티웨이 TW286</p></div>
-            </div>
-            <div class="flex relative z-10">
-              <div class="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i class="fa-solid fa-location-dot text-red-500"></i></div>
-              <div class="flex-1 pt-0.5"><div class="flex items-end gap-2 mb-1"><span class="font-bold text-gray-800 text-lg">12:15</span><span class="font-bold text-gray-700">인천(ICN) 도착</span></div><p class="text-gray-500 text-sm">또 다른 그날을 기약하며....</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
+              {/* Day 2 */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onClick={() => toggleDay('day2')}>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">2일차</span>
+                    <span className="font-bold text-gray-800">4.9 (목)</span>
+                  </div>
+                  <div className="flex items-center text-emerald-700 font-medium text-sm">
+                    그린 미팅 & 힐링데이
+                    <i className={`fa-solid fa-chevron-right ml-3 transition-transform duration-300 ${expandedDays.day2 ? 'rotate-90' : ''}`}></i>
+                  </div>
+                </div>
+                <div className={`p-4 relative ${expandedDays.day2 ? 'block' : 'hidden'}`}>
+                  <div className="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">06:20</span><span className="font-bold text-gray-700">기상 및 조식</span></div><p className="text-gray-500 text-sm">JoyFull | 골프장 이동(5km)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-golf-ball-tee text-green-600"></i></div> 
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">07:54</span><span className="font-bold text-gray-700">타케오 우레시노cc</span></div><p className="text-gray-500 text-sm">OUT코스, 18홀(약 6시간 소요)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-shower text-blue-400"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">13:54</span><span className="font-bold text-gray-700">사우나 및 이동 준비</span></div><p className="text-gray-500 text-sm">라운딩 종료 후 이동</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-hot-tub-person text-blue-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">15:00</span><span className="font-bold text-gray-700">자유시간</span></div><p className="text-gray-500 text-sm">산책, 티타임, 시바온천 야외 노천탕</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-bed text-indigo-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">16:30</span><span className="font-bold text-gray-700">호텔 복귀 및 휴식</span></div><p className="text-gray-500 text-sm">자유 시간</p></div>
+                  </div>
+                  <div className="flex relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-utensils text-orange-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">18:30</span><span className="font-bold text-gray-700">저녁 식사</span></div><p className="text-gray-500 text-sm">후지 오코노미야끼 등</p></div>
+                  </div>
+                </div>
+              </div>
 
-      <!-- ================= INFO TAB ================= -->
-      <div id="tab-info" class="space-y-5 pb-10 hidden">
-        
-        <!-- Flight -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-          <div class="flex items-center gap-2 mb-4 border-b pb-3">
-            <i class="fa-solid fa-plane text-blue-500 text-lg"></i>
-            <h2 class="text-lg font-bold text-gray-800">항공권 정보</h2>
-          </div>
-          <div class="space-y-3 text-sm">
-            <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
-              <span class="font-bold text-blue-800 block mb-1">출발 (4.8 수) | 티웨이 TW285</span>
-              <div class="flex items-center justify-between text-blue-900 mt-2">
-                <span class="font-bold">인천(ICN) 08:10</span>
-                <i class="fa-solid fa-arrow-right text-blue-400"></i>
-                <span class="font-bold">사가(HSG) 09:40</span>
+              {/* Day 3 */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onClick={() => toggleDay('day3')}>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">3일차</span>
+                    <span className="font-bold text-gray-800">4.10 (금)</span>
+                  </div>
+                  <div className="flex items-center text-emerald-700 font-medium text-sm">
+                    그린 미팅 & 다케오 관광
+                    <i className={`fa-solid fa-chevron-right ml-3 transition-transform duration-300 ${expandedDays.day3 ? 'rotate-90' : ''}`}></i>
+                  </div>
+                </div>
+                <div className={`p-4 relative ${expandedDays.day3 ? 'block' : 'hidden'}`}>
+                  <div className="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">07:10</span><span className="font-bold text-gray-700">기상 및 골프장 이동</span></div><p className="text-gray-500 text-sm">호텔에서 34km (약 40분)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-golf-ball-tee text-green-600"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">08:24</span><span className="font-bold text-gray-700">텐잔 GC</span></div><p className="text-gray-500 text-sm">18홀 / 카트 / 중식 (약 6시간)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-shower text-blue-400"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">14:24</span><span className="font-bold text-gray-700">사우나 및 이동 준비</span></div><p className="text-gray-500 text-sm">라운딩 종료 후 약 40분 소요</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-tree text-emerald-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">15:10</span><span className="font-bold text-gray-700">다케오 관광</span></div><p className="text-gray-500 text-sm">다케오 신사 녹나무</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-mug-hot text-amber-600"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">16:30</span><span className="font-bold text-gray-700">티 타임</span></div><p className="text-gray-500 text-sm">다케오 시립 도서관 스타벅스</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">17:30</span><span className="font-bold text-gray-700">사가 시내로 이동</span></div><p className="text-gray-500 text-sm">다케오 관광 후 출발</p></div>
+                  </div>
+                  <div className="flex relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-utensils text-orange-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">18:30</span><span className="font-bold text-gray-700">저녁 만찬 (해수산)</span></div><p className="text-gray-500 text-sm">사가역 앞 신선한 해산물 요리</p></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Day 4 (수정됨) */}
+              <div className="bg-white rounded-2xl shadow-sm border border-emerald-300 overflow-hidden ring-2 ring-emerald-100">
+                <div className="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onClick={() => toggleDay('day4')}>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">4일차</span>
+                    <span className="font-bold text-gray-800">4.11 (토)</span>
+                  </div>
+                  <div className="flex items-center text-emerald-700 font-medium text-sm">
+                    그린 미팅 & 하우스텐보스 관광
+                    <i className={`fa-solid fa-chevron-right ml-3 transition-transform duration-300 ${expandedDays.day4 ? 'rotate-90' : ''}`}></i>
+                  </div>
+                </div>
+                <div className={`p-4 relative ${expandedDays.day4 ? 'block' : 'hidden'}`}>
+                  <div className="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
+                  
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-sun text-orange-400"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">08:30</span><span className="font-bold text-gray-700">기상 및 조식</span></div><p className="text-gray-500 text-sm">라운딩 갈 준비</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">09:30</span><span className="font-bold text-gray-700">골프장 이동</span></div><p className="text-gray-500 text-sm">호텔에서 43km (약 50분)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-golf-ball-tee text-green-600"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">10:37</span><span className="font-bold text-gray-700">하우스텐보스 CC</span></div><p className="text-gray-500 text-sm">18홀 / 카트 / 중식 (약 6시간 소요)</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-shower text-blue-400"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">16:30</span><span className="font-bold text-gray-700">샤워 및 이동 준비</span></div><p className="text-gray-500 text-sm">라운딩 종료 후 하우스텐보스로 이동</p></div>
+                  </div>
+                  
+                  {/* 변경된 하우스텐보스 관광 및 저녁식사 일정 */}
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-indigo-200 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-brands fa-fort-awesome text-indigo-600"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-indigo-900 text-lg">17:00</span><span className="font-bold text-indigo-800">하우스텐보스 관광</span></div><p className="text-gray-600 text-sm">유럽풍 테마파크 산책 및 화려한 일루미네이션(야경) 감상</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-orange-200 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-utensils text-orange-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">19:00</span><span className="font-bold text-gray-700">마지막 밤 저녁 만찬</span></div><p className="text-gray-500 text-sm">하우스텐보스 내 또는 인근 맛집에서 식사</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">20:30</span><span className="font-bold text-gray-700">호텔로 출발</span></div><p className="text-gray-500 text-sm">우레시노까지 이동 (약 50분 소요)</p></div>
+                  </div>
+                  
+                  <div className="flex relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-bed text-indigo-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">21:20</span><span className="font-bold text-gray-700">호텔 복귀 및 휴식</span></div><p className="text-gray-500 text-sm">짐 정리 및 마지막 온천 휴식</p></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Day 5 */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-emerald-50 p-4 flex justify-between items-center cursor-pointer active:bg-emerald-100 transition" onClick={() => toggleDay('day5')}>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold">5일차</span>
+                    <span className="font-bold text-gray-800">4.12 (일)</span>
+                  </div>
+                  <div className="flex items-center text-emerald-700 font-medium text-sm">
+                    귀국
+                    <i className={`fa-solid fa-chevron-right ml-3 transition-transform duration-300 ${expandedDays.day5 ? 'rotate-90' : ''}`}></i>
+                  </div>
+                </div>
+                <div className={`p-4 relative ${expandedDays.day5 ? 'block' : 'hidden'}`}>
+                  <div className="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200"></div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-bed text-indigo-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">07:00</span><span className="font-bold text-gray-700">기상 및 체크아웃</span></div><p className="text-gray-500 text-sm">공항으로 이동</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-car text-gray-700"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">09:00</span><span className="font-bold text-gray-700">렌터카 반납</span></div><p className="text-gray-500 text-sm">사가공항 카운터</p></div>
+                  </div>
+                  <div className="flex mb-6 relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-plane text-blue-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">10:40</span><span className="font-bold text-gray-700">사가(HSG) 출발</span></div><p className="text-gray-500 text-sm">티웨이 TW286</p></div>
+                  </div>
+                  <div className="flex relative z-10">
+                    <div className="bg-white rounded-full p-1 border-2 border-gray-100 shadow-sm z-10 mr-4 h-8 w-8 flex items-center justify-center shrink-0"><i className="fa-solid fa-location-dot text-red-500"></i></div>
+                    <div className="flex-1 pt-0.5"><div className="flex items-end gap-2 mb-1"><span className="font-bold text-gray-800 text-lg">12:15</span><span className="font-bold text-gray-700">인천(ICN) 도착</span></div><p className="text-gray-500 text-sm">또 다른 그날을 기약하며....</p></div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="bg-red-50 p-3 rounded-lg border border-red-100">
-              <span class="font-bold text-red-800 block mb-1">귀국 (4.12 일) | 티웨이 TW286</span>
-              <div class="flex items-center justify-between text-red-900 mt-2">
-                <span class="font-bold">사가(HSG) 10:40</span>
-                <i class="fa-solid fa-arrow-right text-red-400"></i>
-                <span class="font-bold">인천(ICN) 12:15</span>
+          )}
+
+          {/* ================= INFO TAB ================= */}
+          {activeTab === 'info' && (
+            <div className="space-y-5 pb-10 block">
+              
+              {/* Flight */}
+              <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <div className="flex items-center gap-2 mb-4 border-b pb-3">
+                  <i className="fa-solid fa-plane text-blue-500 text-lg"></i>
+                  <h2 className="text-lg font-bold text-gray-800">항공권 정보</h2>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                    <span className="font-bold text-blue-800 block mb-1">출발 (4.8 수) | 티웨이 TW285</span>
+                    <div className="flex items-center justify-between text-blue-900 mt-2">
+                      <span className="font-bold">인천(ICN) 08:10</span>
+                      <i className="fa-solid fa-arrow-right text-blue-400"></i>
+                      <span className="font-bold">사가(HSG) 09:40</span>
+                    </div>
+                  </div>
+                  <div className="bg-red-50 p-3 rounded-lg border border-red-100">
+                    <span className="font-bold text-red-800 block mb-1">귀국 (4.12 일) | 티웨이 TW286</span>
+                    <div className="flex items-center justify-between text-red-900 mt-2">
+                      <span className="font-bold">사가(HSG) 10:40</span>
+                      <i className="fa-solid fa-arrow-right text-red-400"></i>
+                      <span className="font-bold">인천(ICN) 12:15</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Golf -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-          <div class="flex items-center gap-2 mb-4 border-b pb-3">
-            <i class="fa-solid fa-golf-ball-tee text-green-600 text-lg"></i>
-            <h2 class="text-lg font-bold text-gray-800">그린미팅 (골프 예약)</h2>
-          </div>
-          <div class="space-y-4 text-sm">
-            <div>
-              <div class="font-bold text-green-700 text-base mb-1">Day 1: 와카키 CC (13:29 IN)</div>
-              <div class="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260303-B-003922</div>
-              <div class="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트포함 / 공항에서 40km</div>
-            </div>
-            <div class="border-t pt-3">
-              <div class="font-bold text-green-700 text-base mb-1">Day 2: 타케오 우레시노 CC (07:54 OUT)</div>
-              <div class="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260303-B-024714</div>
-              <div class="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트,중식 포함 / 호텔에서 4.4km</div>
-            </div>
-            <div class="border-t pt-3">
-              <div class="font-bold text-green-700 text-base mb-1">Day 3: 텐잔 GC (08:24 OUT)</div>
-              <div class="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260304-B-000470</div>
-              <div class="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트,중식 포함 / 호텔에서 34km</div>
-            </div>
-            <div class="border-t pt-3">
-              <div class="font-bold text-green-700 text-base mb-1">Day 4: 하우스텐보스 CC (10:37 OUT)</div>
-              <div class="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260303-B-023445</div>
-              <div class="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트,중식 포함 / 호텔에서 43km</div>
-            </div>
-          </div>
-        </div>
+              {/* Golf */}
+              <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <div className="flex items-center gap-2 mb-4 border-b pb-3">
+                  <i className="fa-solid fa-golf-ball-tee text-green-600 text-lg"></i>
+                  <h2 className="text-lg font-bold text-gray-800">그린미팅 (골프 예약)</h2>
+                </div>
+                <div className="space-y-4 text-sm">
+                  <div>
+                    <div className="font-bold text-green-700 text-base mb-1">Day 1: 와카키 CC (13:29 IN)</div>
+                    <div className="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260303-B-003922</div>
+                    <div className="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트포함 / 공항에서 40km</div>
+                  </div>
+                  <div className="border-t pt-3">
+                    <div className="font-bold text-green-700 text-base mb-1">Day 2: 타케오 우레시노 CC (07:54 OUT)</div>
+                    <div className="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260303-B-024714</div>
+                    <div className="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트,중식 포함 / 호텔에서 4.4km</div>
+                  </div>
+                  <div className="border-t pt-3">
+                    <div className="font-bold text-green-700 text-base mb-1">Day 3: 텐잔 GC (08:24 OUT)</div>
+                    <div className="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260304-B-000470</div>
+                    <div className="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트,중식 포함 / 호텔에서 34km</div>
+                  </div>
+                  <div className="border-t pt-3">
+                    <div className="font-bold text-green-700 text-base mb-1">Day 4: 하우스텐보스 CC (10:37 OUT)</div>
+                    <div className="text-gray-500 mb-1 text-xs tracking-tight">예약: 20260303-B-023445</div>
+                    <div className="bg-gray-50 px-3 py-2 rounded text-gray-600">18홀 / 카트,중식 포함 / 호텔에서 43km</div>
+                  </div>
+                </div>
+              </div>
 
-        <!-- Accommodation -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-          <div class="flex items-center gap-2 mb-4 border-b pb-3">
-            <i class="fa-solid fa-bed text-indigo-500 text-lg"></i>
-            <h2 class="text-lg font-bold text-gray-800">숙소 정보</h2>
-          </div>
-          <div class="text-sm space-y-2">
-            <p class="font-bold text-lg text-indigo-900">우레시노 온천 호텔 카수이엔</p>
-            <p class="text-gray-600">4.8(수) ~ 4.12(일) / 4박</p>
-            <div class="bg-indigo-50 p-3 rounded-lg mt-3">
-              <p class="flex justify-between border-b border-indigo-100 pb-2 mb-2"><span class="text-gray-500">예약번호</span> <span class="font-mono font-bold text-indigo-900">22315091056088</span></p>
-              <p class="flex justify-between"><span class="text-gray-500">예약 ID</span> <span class="font-mono font-bold text-indig">21315093424836</span></p>
-            </div>
-            <p class="text-xs text-gray-500 mt-2 break-all bg-gray-50 p-2 rounded border">
-              843-0304 333 Ureshinomachi Iwayagawachi, Ureshino-shi, Saga
-            </p>
-          </div>
-        </div>
+              {/* Accommodation */}
+              <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <div className="flex items-center gap-2 mb-4 border-b pb-3">
+                  <i className="fa-solid fa-bed text-indigo-500 text-lg"></i>
+                  <h2 className="text-lg font-bold text-gray-800">숙소 정보</h2>
+                </div>
+                <div className="text-sm space-y-2">
+                  <p className="font-bold text-lg text-indigo-900">우레시노 온천 호텔 카수이엔</p>
+                  <p className="text-gray-600">4.8(수) ~ 4.12(일) / 4박</p>
+                  <div className="bg-indigo-50 p-3 rounded-lg mt-3">
+                    <p className="flex justify-between border-b border-indigo-100 pb-2 mb-2"><span className="text-gray-500">예약번호</span> <span className="font-mono font-bold text-indigo-900">22315091056088</span></p>
+                    <p className="flex justify-between"><span className="text-gray-500">예약 ID</span> <span className="font-mono font-bold text-indigo-900">21315093424836</span></p>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2 break-all bg-gray-50 p-2 rounded border">
+                    843-0304 333 Ureshinomachi Iwayagawachi, Ureshino-shi, Saga
+                  </p>
+                </div>
+              </div>
 
-        <!-- Rent Car -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-          <div class="flex items-center gap-2 mb-4 border-b pb-3">
-            <i class="fa-solid fa-car text-gray-700 text-lg"></i>
-            <h2 class="text-lg font-bold text-gray-800">렌터카 정보</h2>
-          </div>
-          <div class="text-sm space-y-2">
-            <div class="flex justify-between items-center bg-gray-800 text-white p-3 rounded-lg mb-4 shadow-inner">
-              <span class="text-gray-300">예약번호</span>
-              <span class="font-mono text-xl font-bold text-yellow-400 tracking-wider">W7663097</span>
-            </div>
-            <p class="flex justify-between pb-1"><span class="text-gray-500">차량</span> <strong class="text-gray-800">WA CLASS (왜건, 금연)</strong></p>
-            <p class="flex justify-between pb-1"><span class="text-gray-500">인수</span> <span class="font-medium">4.8(수) 10:00 / 사가공항</span></p>
-            <p class="flex justify-between pb-2 border-b"><span class="text-gray-500">반납</span> <span class="font-medium">4.12(일) 09:00 / 사가공항</span></p>
-            
-            <div class="mt-3 pt-2 grid grid-cols-2 gap-y-2 gap-x-1 text-xs text-gray-600">
-              <span class="flex items-center gap-1"><i class="fa-solid fa-check text-green-500"></i> 성인 4명 탑승</span>
-              <span class="flex items-center gap-1"><i class="fa-solid fa-check text-green-500"></i> ETC 카드 희망</span>
-              <span class="flex items-center gap-1"><i class="fa-solid fa-check text-green-500"></i> 면책보상 가입</span>
-              <span class="flex items-center gap-1"><i class="fa-solid fa-check text-green-500"></i> 퀵 체크인 완료</span>
-              <span class="col-span-2 text-red-500 font-bold mt-2 bg-red-50 p-2 rounded text-center border border-red-100">
-                <i class="fa-solid fa-circle-exclamation mr-1"></i> 지점 결제 (RAP 미가입)
-              </span>
-            </div>
-          </div>
-        </div>
+              {/* Rent Car */}
+              <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <div className="flex items-center gap-2 mb-4 border-b pb-3">
+                  <i className="fa-solid fa-car text-gray-700 text-lg"></i>
+                  <h2 className="text-lg font-bold text-gray-800">렌터카 정보</h2>
+                </div>
+                <div className="text-sm space-y-2">
+                  <div className="flex justify-between items-center bg-gray-800 text-white p-3 rounded-lg mb-4 shadow-inner">
+                    <span className="text-gray-300">예약번호</span>
+                    <span className="font-mono text-xl font-bold text-yellow-400 tracking-wider">W7663097</span>
+                  </div>
+                  <p className="flex justify-between pb-1"><span className="text-gray-500">차량</span> <strong className="text-gray-800">WA CLASS (왜건, 금연)</strong></p>
+                  <p className="flex justify-between pb-1"><span className="text-gray-500">인수</span> <span className="font-medium">4.8(수) 10:00 / 사가공항</span></p>
+                  <p className="flex justify-between pb-2 border-b"><span className="text-gray-500">반납</span> <span className="font-medium">4.12(일) 09:00 / 사가공항</span></p>
+                  
+                  <div className="mt-3 pt-2 grid grid-cols-2 gap-y-2 gap-x-1 text-xs text-gray-600">
+                    <span className="flex items-center gap-1"><i className="fa-solid fa-check text-green-500"></i> 성인 4명 탑승</span>
+                    <span className="flex items-center gap-1"><i className="fa-solid fa-check text-green-500"></i> ETC 카드 희망</span>
+                    <span className="flex items-center gap-1"><i className="fa-solid fa-check text-green-500"></i> 면책보상 가입</span>
+                    <span className="flex items-center gap-1"><i className="fa-solid fa-check text-green-500"></i> 퀵 체크인 완료</span>
+                    <span className="col-span-2 text-red-500 font-bold mt-2 bg-red-50 p-2 rounded text-center border border-red-100">
+                      <i className="fa-solid fa-circle-exclamation mr-1"></i> 지점 결제 (RAP 미가입)
+                    </span>
+                  </div>
+                </div>
+              </div>
 
+            </div>
+          )}
+
+        </div>
       </div>
     </div>
-  </div>
-
-  <script>
-    // 아코디언 (일차별 접기/펴기) 기능
-    function toggleDay(dayId) {
-      const content = document.getElementById('content-' + dayId);
-      const icon = document.getElementById('icon-' + dayId);
-      
-      if (content.classList.contains('hidden')) {
-        content.classList.remove('hidden');
-        content.classList.add('block');
-        icon.classList.add('rotate-90');
-      } else {
-        content.classList.add('hidden');
-        content.classList.remove('block');
-        icon.classList.remove('rotate-90');
-      }
-    }
-
-    // 탭 (일정표 / 예약정보) 전환 기능
-    function switchTab(tab) {
-      const tabSchedule = document.getElementById('tab-schedule');
-      const tabInfo = document.getElementById('tab-info');
-      const btnSchedule = document.getElementById('btn-schedule');
-      const btnInfo = document.getElementById('btn-info');
-      
-      const activeClass = "flex-1 py-3 font-bold rounded-xl transition bg-emerald-600 text-white shadow-lg text-sm md:text-base".split(" ");
-      const inactiveClass = "flex-1 py-3 font-bold rounded-xl transition bg-white text-gray-500 shadow text-sm md:text-base".split(" ");
-
-      if (tab === 'schedule') {
-        tabSchedule.classList.remove('hidden');
-        tabSchedule.classList.add('block');
-        tabInfo.classList.add('hidden');
-        tabInfo.classList.remove('block');
-        
-        btnSchedule.className = activeClass.join(" ");
-        btnInfo.className = inactiveClass.join(" ");
-      } else {
-        tabSchedule.classList.add('hidden');
-        tabSchedule.classList.remove('block');
-        tabInfo.classList.remove('hidden');
-        tabInfo.classList.add('block');
-        
-        btnInfo.className = activeClass.join(" ");
-        btnSchedule.className = inactiveClass.join(" ");
-      }
-    }
-  </script>
-</body>
-</html>
-
-
+  );
+}```
 
